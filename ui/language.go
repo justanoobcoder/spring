@@ -27,7 +27,7 @@ func (m Model) updateLanguage(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.language = i.id
 				m.state = chooseBootVersion
 				m.list = NewList("Choose Spring Boot Version", getBootVersions(m.springboot),
-					m.springboot.Version.Default, listHeight)
+					m.springboot.BootVersion.Default, listHeight)
 			}
 			return m, nil
 		}
