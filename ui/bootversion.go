@@ -1,12 +1,9 @@
 package ui
 
 import (
-	"fmt"
-
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/justanoobcoder/spring/springboot"
-	"github.com/justanoobcoder/spring/ui/style"
 )
 
 func getBootVersions(sp springboot.SpringBoot) []list.Item {
@@ -28,9 +25,9 @@ func (m Model) updateBootVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 			i, ok := m.list.SelectedItem().(item)
 			if ok {
 				m.bootVersion = i.id
-				m.choice = m.bootVersion
+				m.state = inputGroupId
 			}
-			return m, tea.Quit
+			return m, nil
 		}
 	}
 
@@ -40,8 +37,5 @@ func (m Model) updateBootVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewBootVersion() string {
-	if m.choice != "" {
-		return style.QuitTextStyle.Render(fmt.Sprintf("%s, %s, %s", m.typE, m.language, m.choice))
-	}
 	return "\n" + m.list.View()
 }

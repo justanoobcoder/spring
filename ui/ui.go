@@ -1,6 +1,8 @@
 package ui
 
 import (
+	"fmt"
+
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/justanoobcoder/spring/ui/style"
 )
@@ -25,13 +27,22 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m.updateLanguage(msg)
 	case chooseBootVersion:
 		return m.updateBootVersion(msg)
+	case inputGroupId:
+		return m.updateInputGroupId(msg)
 	}
 	return m, nil
 }
 
 func (m Model) View() string {
 	if m.quitting {
-		return style.QuitTextStyle.Render("Goobye!")
+		return style.QuitTextStyle.Render(
+			fmt.Sprintf("%s, %s, %s, %s",
+				m.typE,
+				m.language,
+				m.bootVersion,
+				m.groupId,
+			),
+		)
 	}
 	var s string
 	switch m.state {
@@ -41,6 +52,8 @@ func (m Model) View() string {
 		s = m.viewLanguage()
 	case chooseBootVersion:
 		s = m.viewBootVersion()
+	case inputGroupId:
+		s = m.viewInputGroupId()
 	}
 	return s
 }
