@@ -38,17 +38,8 @@ type Model struct {
 
 func NewModel() *Model {
 	sp := springboot.GetSpringBoot()
-	l := list.New(getProjectTypes(sp), itemDelegate{}, 100, listHeight)
-	l.Title = "Choose Project Type"
-	items := l.Items()
-	for i := range items {
-		if items[i].(item).id == sp.Type.Default {
-			l.Select(i)
-			break
-		}
-	}
-	l.SetShowStatusBar(false)
-	l.SetFilteringEnabled(false)
+	l := NewList("Choose Project Type", getProjectTypes(sp),
+		sp.Type.Default, listHeight)
 	ti := textinput.New()
 	ti.Focus()
 	return &Model{

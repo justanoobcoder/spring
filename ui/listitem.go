@@ -42,3 +42,17 @@ func (d itemDelegate) Render(w io.Writer, m list.Model, index int, listItem list
 
 	fmt.Fprint(w, fn(str))
 }
+
+func NewList(title string, items []list.Item, def string, height int) list.Model {
+	l := list.New(items, itemDelegate{}, 100, height)
+	l.Title = title
+	l.SetShowStatusBar(false)
+	l.SetFilteringEnabled(false)
+	for i := range items {
+		if items[i].(item).id == def {
+			l.Select(i)
+			break
+		}
+	}
+	return l
+}

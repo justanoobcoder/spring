@@ -26,17 +26,8 @@ func (m Model) updateLanguage(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if ok {
 				m.language = i.id
 				m.state = chooseBootVersion
-				m.list = list.New(getBootVersions(m.springboot), itemDelegate{}, 100, listHeight)
-				m.list.Title = "Choose Spring Boot Version"
-				items := m.list.Items()
-				for i := range items {
-					if items[i].(item).id == m.springboot.BootVersion.Default {
-						m.list.Select(i)
-						break
-					}
-				}
-				m.list.SetShowStatusBar(false)
-				m.list.SetFilteringEnabled(false)
+				m.list = NewList("Choose Spring Boot Version", getBootVersions(m.springboot),
+					m.springboot.Version.Default, listHeight)
 			}
 			return m, nil
 		}

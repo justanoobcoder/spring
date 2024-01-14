@@ -26,17 +26,8 @@ func (m Model) updateProjectType(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if ok {
 				m.typE = i.id
 				m.state = chooseLanguage
-				m.list = list.New(getLanguages(m.springboot), itemDelegate{}, 100, listHeight)
-				m.list.Title = "Choose Language"
-				items := m.list.Items()
-				for i := range items {
-					if items[i].(item).id == m.springboot.Language.Default {
-						m.list.Select(i)
-						break
-					}
-				}
-				m.list.SetShowStatusBar(false)
-				m.list.SetFilteringEnabled(false)
+				m.list = NewList("Choose Language", getLanguages(m.springboot),
+					m.springboot.Language.Default, listHeight)
 			}
 			return m, nil
 		}
