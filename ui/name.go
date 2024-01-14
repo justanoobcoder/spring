@@ -6,18 +6,17 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) updateArtifactId(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m Model) updateName(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
-			m.artifactId = m.textInput.Value()
-			m.state = inputName
-			m.textInput.Placeholder = "Name"
-			m.textInput.SetValue(m.springboot.Name.Default)
-			return m, nil
+			m.name = m.textInput.Value()
+			m.state = inputDescription
+			m.quitting = true
+			return m, tea.Quit
 		}
 	}
 
@@ -25,9 +24,9 @@ func (m Model) updateArtifactId(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-func (m Model) viewArtifactId() string {
+func (m Model) viewName() string {
 	return fmt.Sprintf(
-		"Enter project Artifact ID:\n\n%s\n\n%s",
+		"Enter project Name:\n\n%s\n\n%s",
 		m.textInput.View(),
 		"(esc to quit)",
 	) + "\n"

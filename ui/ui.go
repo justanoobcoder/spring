@@ -31,6 +31,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m.updateInputGroupId(msg)
 	case inputArtifactId:
 		return m.updateArtifactId(msg)
+	case inputName:
+		return m.updateName(msg)
 	}
 	return m, nil
 }
@@ -38,12 +40,13 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m Model) View() string {
 	if m.quitting {
 		return style.QuitTextStyle.Render(
-			fmt.Sprintf("%s, %s, %s, %s, %s",
+			fmt.Sprintf("%s, %s, %s, %s, %s, %s",
 				m.typE,
 				m.language,
 				m.bootVersion,
 				m.groupId,
 				m.artifactId,
+				m.name,
 			),
 		)
 	}
@@ -59,6 +62,8 @@ func (m Model) View() string {
 		s = m.viewInputGroupId()
 	case inputArtifactId:
 		s = m.viewArtifactId()
+	case inputName:
+		s = m.viewName()
 	}
 	return s
 }
