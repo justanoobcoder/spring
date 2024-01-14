@@ -14,9 +14,10 @@ func (m Model) updateDescription(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.Type {
 		case tea.KeyEnter:
 			m.description = m.textInput.Value()
-			m.state = inputPackageName
-			m.quitting = true
-			return m, tea.Quit
+			m.state = choosePackaging
+			m.list = NewList("Choose Packaging", getPackagingOptions(m.springboot),
+				m.springboot.Packaging.Default, listHeight)
+			return m, nil
 		}
 	}
 
