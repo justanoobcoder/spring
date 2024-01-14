@@ -6,9 +6,9 @@ import (
 	"github.com/justanoobcoder/spring/springboot"
 )
 
-func getPackagingOptions(sp springboot.SpringBoot) []list.Item {
+func getJavaVersion(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
-	for _, v := range sp.Packaging.Values {
+	for _, v := range sp.JavaVersion.Values {
 		items = append(items, item{
 			id:   v.ID,
 			name: v.Name,
@@ -17,19 +17,18 @@ func getPackagingOptions(sp springboot.SpringBoot) []list.Item {
 	return items
 }
 
-func (m Model) updatePackaging(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
 			i, ok := m.list.SelectedItem().(item)
 			if ok {
-				m.packaging = i.id
-				m.state = chooseJavaVersion
-				m.list = NewList("Choose Java Version", getJavaVersion(m.springboot),
-					m.springboot.JavaVersion.Default, listHeight)
+				m.javaVersion = i.id
+				m.state = chooseDependencies
+				m.quitting = true
 			}
-			return m, nil
+			return m, tea.Quit
 		}
 	}
 
@@ -38,6 +37,6 @@ func (m Model) updatePackaging(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-func (m Model) viewPackaging() string {
+func (m Model) viewJavaVersion() string {
 	return "\n" + m.list.View()
 }
