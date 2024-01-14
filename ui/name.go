@@ -15,8 +15,10 @@ func (m Model) updateName(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case tea.KeyEnter:
 			m.name = m.textInput.Value()
 			m.state = inputDescription
-			m.quitting = true
-			return m, tea.Quit
+			m.textInput.Placeholder = "Description"
+			m.textInput.SetValue(m.springboot.Description.Default)
+			m.textInput.CursorEnd()
+			return m, nil
 		}
 	}
 
@@ -26,7 +28,7 @@ func (m Model) updateName(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m Model) viewName() string {
 	return fmt.Sprintf(
-		"Enter project Name:\n\n%s\n\n%s",
+		"Enter project name:\n\n%s\n\n%s",
 		m.textInput.View(),
 		"(esc to quit)",
 	) + "\n"
