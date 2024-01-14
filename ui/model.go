@@ -12,7 +12,15 @@ const (
 	chooseProjectType state = iota
 	chooseBootVersion
 	chooseLanguage
+	inputGroupId
+	inputArtifactId
+	inputName
+	inputDescription
+	inputPackageName
+	inputVersion
+	choosePackaging
 	chooseJavaVersion
+	chooseDependencies
 )
 
 type Model struct {
