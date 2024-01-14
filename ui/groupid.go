@@ -17,6 +17,7 @@ func (m Model) updateInputGroupId(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.state = inputArtifactId
 			m.textInput.Placeholder = "Artifact ID"
 			m.textInput.SetValue(m.springboot.ArtifactID.Default)
+			m.textInput.CursorEnd()
 			return m, nil
 		}
 	}

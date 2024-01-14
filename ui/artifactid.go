@@ -17,6 +17,7 @@ func (m Model) updateArtifactId(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.state = inputName
 			m.textInput.Placeholder = "Name"
 			m.textInput.SetValue(m.springboot.Name.Default)
+			m.textInput.CursorEnd()
 			return m, nil
 		}
 	}
