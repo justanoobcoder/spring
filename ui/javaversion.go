@@ -26,9 +26,10 @@ func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if ok {
 				m.javaVersion = i.id
 				m.state = chooseDependencies
-				m.quitting = true
+				m.list = list.New(getDependencies(m.springboot), list.NewDefaultDelegate(), 100, listHeight)
+				m.list.Title = "Choose Dependencies"
 			}
-			return m, tea.Quit
+			return m, nil
 		}
 	}
 

@@ -41,6 +41,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m.updatePackaging(msg)
 	case chooseJavaVersion:
 		return m.updateJavaVersion(msg)
+	case chooseDependencies:
+		return m.updateDependencies(msg)
 	}
 	return m, nil
 }
@@ -48,7 +50,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m Model) View() string {
 	if m.quitting {
 		return style.QuitTextStyle.Render(
-			fmt.Sprintf("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
+			fmt.Sprintf("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s\n%v",
 				m.typE,
 				m.language,
 				m.bootVersion,
@@ -59,6 +61,7 @@ func (m Model) View() string {
 				m.packageName,
 				m.packaging,
 				m.javaVersion,
+				m.dependencies,
 			),
 		)
 	}
@@ -84,6 +87,8 @@ func (m Model) View() string {
 		s = m.viewPackaging()
 	case chooseJavaVersion:
 		s = m.viewJavaVersion()
+	case chooseDependencies:
+		s = m.viewDependencies()
 	}
 	return s
 }
