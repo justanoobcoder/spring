@@ -49,6 +49,8 @@ func NewModel() *Model {
 	l := NewList("Choose Project Type", getProjectTypes(sp),
 		sp.Type.Default, listHeight)
 	ti := textinput.New()
+	ti.Placeholder = "Group ID"
+	ti.SetValue(sp.GroupID.Default)
 	ti.Focus()
 	return &Model{
 		packaging:    sp.Packaging.Default,
