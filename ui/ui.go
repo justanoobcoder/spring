@@ -2,6 +2,7 @@ package ui
 
 import (
 	"fmt"
+	"log"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/justanoobcoder/spring/ui/style"
@@ -15,7 +16,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
-		case "ctrl+c", "q":
+		case "ctrl+c":
 			m.quitting = true
 			return m, tea.Quit
 		}
@@ -43,25 +44,40 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m.updateJavaVersion(msg)
 	case chooseDependencies:
 		return m.updateDependencies(msg)
+	case downloadFile:
+		return m.updateDownloadFile(msg)
 	}
 	return m, nil
 }
 
 func (m Model) View() string {
 	if m.quitting {
+		log.Printf("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s\n%v",
+			m.Type,
+			m.Language,
+			m.BootVersion,
+			m.GroupId,
+			m.ArtifactId,
+			m.Name,
+			m.Description,
+			m.PackageName,
+			m.Packaging,
+			m.JavaVersion,
+			m.Dependencies,
+		)
 		return style.QuitTextStyle.Render(
 			fmt.Sprintf("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s\n%v",
-				m.typE,
-				m.language,
-				m.bootVersion,
-				m.groupId,
-				m.artifactId,
-				m.name,
-				m.description,
-				m.packageName,
-				m.packaging,
-				m.javaVersion,
-				m.dependencies,
+				m.Type,
+				m.Language,
+				m.BootVersion,
+				m.GroupId,
+				m.ArtifactId,
+				m.Name,
+				m.Description,
+				m.PackageName,
+				m.Packaging,
+				m.JavaVersion,
+				m.Dependencies,
 			),
 		)
 	}
@@ -89,6 +105,8 @@ func (m Model) View() string {
 		s = m.viewJavaVersion()
 	case chooseDependencies:
 		s = m.viewDependencies()
+	case downloadFile:
+		s = m.viewDownloadFile()
 	}
 	return s
 }
