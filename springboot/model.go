@@ -7,6 +7,21 @@ import (
 	"time"
 )
 
+type Request struct {
+	Dependencies string `json:"dependencies"`
+	JavaVersion  string `json:"javaVersion"`
+	Type         string `json:"type"`
+	Version      string `json:"version"`
+	Packaging    string `json:"packaging"`
+	Language     string `json:"language"`
+	BootVersion  string `json:"bootVersion"`
+	GroupId      string `json:"groupId"`
+	ArtifactId   string `json:"artifactId"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	PackageName  string `json:"packageName"`
+}
+
 type SpringBoot struct {
 	GroupID      ArtifactID             `json:"groupId"`
 	PackageName  ArtifactID             `json:"packageName"`
