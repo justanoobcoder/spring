@@ -1,7 +1,6 @@
 package springboot
 
 import (
-	"encoding/json"
 	"io"
 	"log"
 	"net/http"
@@ -24,13 +23,12 @@ func urlEncode(req Request) string {
 	return data.Encode()
 }
 
-func CreateProject(body Request) {
-	_, err := json.Marshal(body)
-	if err != nil {
-		log.Fatal("error marshaling json", err)
-	}
-
-	req, err := http.NewRequest("POST", "https://start.spring.io/starter.zip", strings.NewReader(urlEncode(body)))
+func Download(body Request, filename string) {
+	req, err := http.NewRequest(
+		"POST",
+		"https://start.spring.io/"+filename,
+		strings.NewReader(urlEncode(body)),
+	)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	if err != nil {
 		log.Fatal("error creating request", err)
@@ -43,7 +41,7 @@ func CreateProject(body Request) {
 	}
 
 	defer resp.Body.Close()
-	out, err := os.Create(body.Name + ".zip")
+	out, err := os.Create(filename)
 	if err != nil {
 		log.Fatal("error creating file", err)
 	}

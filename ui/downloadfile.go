@@ -22,7 +22,14 @@ func (m Model) updateDownloadFile(msg tea.Msg) (tea.Model, tea.Cmd) {
 		Description:  m.Description,
 		PackageName:  m.PackageName,
 	}
-	springboot.CreateProject(body)
+	var filename string
+	for _, t := range m.springboot.Type.Values {
+		if t.ID == m.Type {
+			filename = strings.TrimPrefix(t.Action, "/")
+			break
+		}
+	}
+	springboot.Download(body, filename)
 	m.quitting = true
 	return m, tea.Quit
 }
