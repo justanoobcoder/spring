@@ -24,7 +24,7 @@ func (m Model) updateProjectType(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			i, ok := m.list.SelectedItem().(item)
 			if ok {
-				m.typE = i.id
+				m.Type = i.id
 				m.state = chooseLanguage
 				m.list = NewList("Choose Language", getLanguages(m.springboot),
 					m.springboot.Language.Default, m.list.Width(), m.list.Height())

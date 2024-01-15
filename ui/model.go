@@ -21,24 +21,24 @@ const (
 	choosePackaging
 	chooseJavaVersion
 	chooseDependencies
+	downloadFile
 )
 
 type Model struct {
 	list         list.Model
-	packageName  string
-	version      string
-	bootVersion  string
-	groupId      string
-	artifactId   string
-	packaging    string
-	description  string
-	language     string
-	name         string
-	typE         string
-	javaVersion  string
+	PackageName  string
+	Version      string
+	BootVersion  string
+	GroupId      string
+	ArtifactId   string
+	Packaging    string
+	Description  string
+	Language     string
+	Name         string
+	Type         string
+	JavaVersion  string
 	springboot   springboot.SpringBoot
-	dependencies []string
-	choice       string
+	Dependencies []string
 	textInput    textinput.Model
 	state        state
 	quitting     bool
@@ -52,18 +52,18 @@ func NewModel() *Model {
 	ti.SetValue(sp.GroupID.Default)
 	ti.Focus()
 	return &Model{
-		packaging:    sp.Packaging.Default,
-		javaVersion:  sp.JavaVersion.Default,
-		language:     sp.Language.Default,
-		bootVersion:  sp.BootVersion.Default,
-		groupId:      sp.GroupID.Default,
-		artifactId:   sp.ArtifactID.Default,
-		name:         sp.Name.Default,
-		description:  sp.Description.Default,
-		packageName:  sp.PackageName.Default,
-		version:      sp.Version.Default,
-		typE:         sp.Type.Default,
-		dependencies: []string{},
+		Packaging:    sp.Packaging.Default,
+		JavaVersion:  sp.JavaVersion.Default,
+		Language:     sp.Language.Default,
+		BootVersion:  sp.BootVersion.Default,
+		GroupId:      sp.GroupID.Default,
+		ArtifactId:   sp.ArtifactID.Default,
+		Name:         sp.Name.Default,
+		Description:  sp.Description.Default,
+		PackageName:  sp.PackageName.Default,
+		Version:      sp.Version.Default,
+		Type:         sp.Type.Default,
+		Dependencies: []string{},
 		list:         l,
 		textInput:    ti,
 		springboot:   sp,

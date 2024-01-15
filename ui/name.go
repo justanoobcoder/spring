@@ -13,7 +13,7 @@ func (m Model) updateName(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
-			m.name = m.textInput.Value()
+			m.Name = m.textInput.Value()
 			m.state = inputDescription
 			m.textInput.Placeholder = "Description"
 			m.textInput.SetValue(m.springboot.Description.Default)

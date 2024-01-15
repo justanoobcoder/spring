@@ -24,7 +24,7 @@ func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			i, ok := m.list.SelectedItem().(item)
 			if ok {
-				m.javaVersion = i.id
+				m.JavaVersion = i.id
 				m.state = chooseDependencies
 				m.list = list.New(getDependencies(m.springboot), filterItemDelegate{}, m.list.Width()/2, m.list.Height())
 				m.list.Title = "Choose Dependencies"

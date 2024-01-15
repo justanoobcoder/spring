@@ -27,13 +27,15 @@ func getDependencies(sp springboot.SpringBoot) []list.Item {
 func (m Model) updateDependencies(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
-		if msg.String() == "enter" {
+		key := msg.String()
+		switch key {
+		case "enter":
 			selected := m.list.SelectedItem().(filteritem)
 			if !selected.selected {
-				m.dependencies = append(m.dependencies, selected.id)
+				m.Dependencies = append(m.Dependencies, selected.id)
 			} else {
-				idx := slices.Index(m.dependencies, selected.id)
-				m.dependencies = append(m.dependencies[:idx], m.dependencies[idx+1:]...)
+				idx := slices.Index(m.Dependencies, selected.id)
+				m.Dependencies = append(m.Dependencies[:idx], m.Dependencies[idx+1:]...)
 			}
 			var newList []list.Item
 			for _, v := range m.list.Items() {
@@ -55,6 +57,9 @@ func (m Model) updateDependencies(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 			m.list.SetItems(newList)
 			m.list.ResetFilter()
+			return m, nil
+		case "ctrl+d":
+			m.state = downloadFile
 			return m, nil
 		}
 	}

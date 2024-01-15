@@ -13,7 +13,7 @@ func (m Model) updateInputGroupId(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
-			m.groupId = m.textInput.Value()
+			m.GroupId = m.textInput.Value()
 			m.state = inputArtifactId
 			m.textInput.Placeholder = "Artifact ID"
 			m.textInput.SetValue(m.springboot.ArtifactID.Default)

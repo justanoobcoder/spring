@@ -24,7 +24,7 @@ func (m Model) updateBootVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			i, ok := m.list.SelectedItem().(item)
 			if ok {
-				m.bootVersion = i.id
+				m.BootVersion = i.id
 				m.state = inputGroupId
 			}
 			return m, nil

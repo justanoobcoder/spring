@@ -24,7 +24,7 @@ func (m Model) updateLanguage(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			i, ok := m.list.SelectedItem().(item)
 			if ok {
-				m.language = i.id
+				m.Language = i.id
 				m.state = chooseBootVersion
 				m.list = NewList("Choose Spring Boot Version", getBootVersions(m.springboot),
 					m.springboot.BootVersion.Default, m.list.Width(), m.list.Height())

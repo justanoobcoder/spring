@@ -24,7 +24,7 @@ func (m Model) updatePackaging(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			i, ok := m.list.SelectedItem().(item)
 			if ok {
-				m.packaging = i.id
+				m.Packaging = i.id
 				m.state = chooseJavaVersion
 				m.list = NewList("Choose Java Version", getJavaVersion(m.springboot),
 					m.springboot.JavaVersion.Default, m.list.Width(), m.list.Height())
