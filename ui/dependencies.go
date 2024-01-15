@@ -29,7 +29,7 @@ func (m Model) updateDependencies(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		key := msg.String()
 		switch key {
-		case "enter":
+		case "enter", " ":
 			selected := m.list.SelectedItem().(filteritem)
 			if !selected.selected {
 				m.Dependencies = append(m.Dependencies, selected.id)
@@ -58,7 +58,7 @@ func (m Model) updateDependencies(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.list.SetItems(newList)
 			m.list.ResetFilter()
 			return m, nil
-		case "ctrl+d":
+		case "ctrl+s":
 			m.state = downloadFileState
 			return m, m.downloadFile
 		}
