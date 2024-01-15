@@ -59,8 +59,8 @@ func (m Model) updateDependencies(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.list.ResetFilter()
 			return m, nil
 		case "ctrl+d":
-			m.state = downloadFile
-			return m, nil
+			m.state = downloadFileState
+			return m, m.downloadFile
 		}
 	}
 
