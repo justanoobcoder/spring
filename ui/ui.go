@@ -43,7 +43,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m.updateJavaVersion(msg)
 	case chooseDependencies:
 		return m.updateDependencies(msg)
-	case downloadFile:
+	case downloadFileState:
 		return m.updateDownloadFile(msg)
 	}
 	return m, nil
@@ -91,7 +91,7 @@ func (m Model) View() string {
 		s = m.viewJavaVersion()
 	case chooseDependencies:
 		s = m.viewDependencies()
-	case downloadFile:
+	case downloadFileState:
 		s = m.viewDownloadFile()
 	}
 	return s

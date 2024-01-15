@@ -6,6 +6,10 @@ import (
 	"github.com/justanoobcoder/spring/springboot"
 )
 
+type errMsg struct{ error }
+
+func (e errMsg) Error() string { return e.error.Error() }
+
 type state int
 
 const (
@@ -21,7 +25,7 @@ const (
 	choosePackaging
 	chooseJavaVersion
 	chooseDependencies
-	downloadFile
+	downloadFileState
 )
 
 type Model struct {
