@@ -29,6 +29,9 @@ func (m Model) updateBootVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 			return m, nil
 		}
+	case tea.WindowSizeMsg:
+		m.list.SetWidth(msg.Width)
+		m.list.SetHeight(msg.Height - 1)
 	}
 
 	var cmd tea.Cmd

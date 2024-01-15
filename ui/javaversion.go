@@ -26,11 +26,15 @@ func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if ok {
 				m.javaVersion = i.id
 				m.state = chooseDependencies
-				m.list = list.New(getDependencies(m.springboot), filterItemDelegate{}, 100, 30)
+				m.list = list.New(getDependencies(m.springboot), filterItemDelegate{}, m.list.Width()/2, m.list.Height())
 				m.list.Title = "Choose Dependencies"
+				m.list.SetShowStatusBar(false)
 			}
 			return m, nil
 		}
+	case tea.WindowSizeMsg:
+		m.list.SetWidth(msg.Width)
+		m.list.SetHeight(msg.Height - 1)
 	}
 
 	var cmd tea.Cmd

@@ -46,8 +46,7 @@ type Model struct {
 
 func NewModel() *Model {
 	sp := springboot.GetSpringBoot()
-	l := NewList("Choose Project Type", getProjectTypes(sp),
-		sp.Type.Default, listHeight)
+	l := NewList("Choose Project Type", getProjectTypes(sp), sp.Type.Default, 0, 0)
 	ti := textinput.New()
 	ti.Placeholder = "Group ID"
 	ti.SetValue(sp.GroupID.Default)

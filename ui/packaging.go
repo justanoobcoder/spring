@@ -27,10 +27,13 @@ func (m Model) updatePackaging(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.packaging = i.id
 				m.state = chooseJavaVersion
 				m.list = NewList("Choose Java Version", getJavaVersion(m.springboot),
-					m.springboot.JavaVersion.Default, listHeight)
+					m.springboot.JavaVersion.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil
 		}
+	case tea.WindowSizeMsg:
+		m.list.SetWidth(msg.Width)
+		m.list.SetHeight(msg.Height - 1)
 	}
 
 	var cmd tea.Cmd

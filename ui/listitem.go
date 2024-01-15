@@ -43,8 +43,8 @@ func (d itemDelegate) Render(w io.Writer, m list.Model, index int, listItem list
 	fmt.Fprint(w, fn(str))
 }
 
-func NewList(title string, items []list.Item, def string, height int) list.Model {
-	l := list.New(items, itemDelegate{}, 100, height)
+func NewList(title string, items []list.Item, def string, width, height int) list.Model {
+	l := list.New(items, itemDelegate{}, width, height)
 	l.Title = title
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(false)

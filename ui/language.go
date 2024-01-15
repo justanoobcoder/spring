@@ -27,10 +27,13 @@ func (m Model) updateLanguage(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.language = i.id
 				m.state = chooseBootVersion
 				m.list = NewList("Choose Spring Boot Version", getBootVersions(m.springboot),
-					m.springboot.BootVersion.Default, listHeight)
+					m.springboot.BootVersion.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil
 		}
+	case tea.WindowSizeMsg:
+		m.list.SetWidth(msg.Width)
+		m.list.SetHeight(msg.Height - 1)
 	}
 
 	var cmd tea.Cmd

@@ -11,7 +11,7 @@ func main() {
 		panic(err)
 	}
 	defer f.Close()
-	if _, err := tea.NewProgram(ui.NewModel()).Run(); err != nil {
+	if _, err := tea.NewProgram(ui.NewModel(), tea.WithAltScreen()).Run(); err != nil {
 		panic(err)
 	}
 }

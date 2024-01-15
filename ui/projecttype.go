@@ -27,10 +27,13 @@ func (m Model) updateProjectType(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.typE = i.id
 				m.state = chooseLanguage
 				m.list = NewList("Choose Language", getLanguages(m.springboot),
-					m.springboot.Language.Default, listHeight)
+					m.springboot.Language.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil
 		}
+	case tea.WindowSizeMsg:
+		m.list.SetWidth(msg.Width)
+		m.list.SetHeight(msg.Height - 1)
 	}
 
 	var cmd tea.Cmd
