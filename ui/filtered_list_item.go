@@ -14,21 +14,21 @@ import (
 
 var docStyle = lipgloss.NewStyle().Margin(1, 2)
 
-type filteritem struct {
+type filteredListItem struct {
 	id, title, category, desc string
 	selected                  bool
 }
 
-func (i filteritem) Title() string       { return i.title }
-func (i filteritem) Description() string { return i.desc }
-func (i filteritem) FilterValue() string { return i.title }
+func (i filteredListItem) Title() string       { return i.title }
+func (i filteredListItem) Description() string { return i.desc }
+func (i filteredListItem) FilterValue() string { return i.title }
 
-type filterItemDelegate struct{}
+type filteredListItemDelegate struct{}
 
-func (d filterItemDelegate) Height() int                             { return 2 }
-func (d filterItemDelegate) Spacing() int                            { return 1 }
-func (d filterItemDelegate) Update(_ tea.Msg, _ *list.Model) tea.Cmd { return nil }
-func (d filterItemDelegate) Render(w io.Writer, m list.Model, index int, listItem list.Item) {
+func (d filteredListItemDelegate) Height() int                             { return 2 }
+func (d filteredListItemDelegate) Spacing() int                            { return 1 }
+func (d filteredListItemDelegate) Update(_ tea.Msg, _ *list.Model) tea.Cmd { return nil }
+func (d filteredListItemDelegate) Render(w io.Writer, m list.Model, index int, listItem list.Item) {
 	var (
 		title, desc  string
 		choosen      bool
@@ -36,7 +36,7 @@ func (d filterItemDelegate) Render(w io.Writer, m list.Model, index int, listIte
 		s            = list.NewDefaultItemStyles()
 	)
 
-	if i, ok := listItem.(filteritem); ok {
+	if i, ok := listItem.(filteredListItem); ok {
 		title = i.Title() + " - " + i.category
 		desc = i.Description()
 		choosen = i.selected

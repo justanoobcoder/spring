@@ -9,7 +9,7 @@ import (
 func getPackagingOptions(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.Packaging.Values {
-		items = append(items, item{
+		items = append(items, normalListItem{
 			id:   v.ID,
 			name: v.Name,
 		})
@@ -22,11 +22,11 @@ func (m Model) updatePackaging(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(item)
+			i, ok := m.list.SelectedItem().(normalListItem)
 			if ok {
 				m.Packaging = i.id
 				m.state = chooseJavaVersion
-				m.list = NewList("Choose Java Version", getJavaVersion(m.springboot),
+				m.list = NewNormalListModel("Choose Java Version", getJavaVersion(m.springboot),
 					m.springboot.JavaVersion.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil

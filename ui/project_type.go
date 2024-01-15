@@ -9,7 +9,7 @@ import (
 func getProjectTypes(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.Type.Values {
-		items = append(items, item{
+		items = append(items, normalListItem{
 			id:   v.ID,
 			name: v.Name,
 		})
@@ -22,11 +22,11 @@ func (m Model) updateProjectType(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(item)
+			i, ok := m.list.SelectedItem().(normalListItem)
 			if ok {
 				m.Type = i.id
 				m.state = chooseLanguage
-				m.list = NewList("Choose Language", getLanguages(m.springboot),
+				m.list = NewNormalListModel("Choose Language", getLanguages(m.springboot),
 					m.springboot.Language.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil

@@ -9,7 +9,7 @@ import (
 func getBootVersions(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.BootVersion.Values {
-		items = append(items, item{
+		items = append(items, normalListItem{
 			id:   v.ID,
 			name: v.Name,
 		})
@@ -22,7 +22,7 @@ func (m Model) updateBootVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(item)
+			i, ok := m.list.SelectedItem().(normalListItem)
 			if ok {
 				m.BootVersion = i.id
 				m.state = inputGroupId

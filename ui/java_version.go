@@ -9,7 +9,7 @@ import (
 func getJavaVersion(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.JavaVersion.Values {
-		items = append(items, item{
+		items = append(items, normalListItem{
 			id:   v.ID,
 			name: v.Name,
 		})
@@ -22,11 +22,16 @@ func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(item)
+			i, ok := m.list.SelectedItem().(normalListItem)
 			if ok {
 				m.JavaVersion = i.id
 				m.state = chooseDependencies
-				m.list = list.New(getDependencies(m.springboot), filterItemDelegate{}, m.list.Width()/2, m.list.Height())
+				m.list = list.New(
+					getDependencies(m.springboot),
+					filteredListItemDelegate{},
+					m.list.Width()/2,
+					m.list.Height(),
+				)
 				m.list.Title = "Choose Dependencies"
 				m.list.SetShowStatusBar(false)
 			}

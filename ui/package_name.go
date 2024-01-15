@@ -15,7 +15,7 @@ func (m Model) updatePackageName(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case tea.KeyEnter:
 			m.PackageName = m.textInput.Value()
 			m.state = choosePackaging
-			m.list = NewList("Choose Packaging", getPackagingOptions(m.springboot),
+			m.list = NewNormalListModel("Choose Packaging", getPackagingOptions(m.springboot),
 				m.springboot.Packaging.Default, m.list.Width(), m.list.Height())
 			return m, nil
 		}
