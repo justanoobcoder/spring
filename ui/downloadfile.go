@@ -7,7 +7,9 @@ import (
 	"github.com/justanoobcoder/spring/springboot"
 )
 
-func (m Model) updateDownloadFile(msg tea.Msg) (tea.Model, tea.Cmd) {
+type statusMsg int
+
+func (m Model) downloadFile() tea.Msg {
 	body := springboot.Request{
 		Dependencies: strings.Join(m.Dependencies, ","),
 		JavaVersion:  m.JavaVersion,
@@ -29,9 +31,27 @@ func (m Model) updateDownloadFile(msg tea.Msg) (tea.Model, tea.Cmd) {
 			break
 		}
 	}
-	springboot.Download(body, filename)
-	m.quitting = true
-	return m, tea.Quit
+	statusCode, err := springboot.Download(body, filename)
+	if err != nil {
+		return errMsg{err}
+	}
+
+	return statusMsg(statusCode)
+}
+
+func (m Model) updateDownloadFile(msg tea.Msg) (tea.Model, tea.Cmd) {
+	switch msg := msg.(type) {
+	case statusMsg:
+		if msg == 200 {
+			m.quitting = true
+			return m, tea.Quit
+		}
+		return m, tea.Quit
+	case errMsg:
+		return m, tea.Quit
+	default:
+		return m, nil
+	}
 }
 
 func (m Model) viewDownloadFile() string {
