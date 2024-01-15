@@ -14,7 +14,7 @@ type Request struct {
 	Version      string `json:"version"`
 	Packaging    string `json:"packaging"`
 	Language     string `json:"language"`
-	BootVersion  string `json:"bootVersion"`
+	BootVersion  string `json:"platformVersion"`
 	GroupId      string `json:"groupId"`
 	ArtifactId   string `json:"artifactId"`
 	Name         string `json:"name"`
