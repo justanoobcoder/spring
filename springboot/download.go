@@ -1,32 +1,37 @@
 package springboot
 
 import (
-	"bytes"
 	"encoding/json"
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
+	"reflect"
+	"strings"
 	"time"
 )
 
-// create a function that send a post request to https://start.spring.io/starter.zip
-// request body should be a json with the following structure:
-// {
-//     "dependencies": "web,lombok",
-//     "javaVersion": "17",
-//     "type": "maven-project",
-//     "applicationName": "MyApp"
-// }
-//
+func urlEncode(req Request) string {
+	data := url.Values{}
+	val := reflect.ValueOf(req)
+	for i := 0; i < val.Type().NumField(); i++ {
+		k := val.Type().Field(i).Tag.Get("json")
+		v := val.Field(i).String()
+		data.Add(k, v)
+	}
+
+	return data.Encode()
+}
 
 func CreateProject(body Request) {
-	mashal, err := json.Marshal(body)
+	_, err := json.Marshal(body)
 	if err != nil {
 		log.Fatal("error marshaling json", err)
 	}
 
-	req, err := http.NewRequest("POST", "https://start.spring.io/starter.zip", bytes.NewBuffer(mashal))
+	req, err := http.NewRequest("POST", "https://start.spring.io/starter.zip", strings.NewReader(urlEncode(body)))
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	if err != nil {
 		log.Fatal("error creating request", err)
 	}
@@ -36,13 +41,16 @@ func CreateProject(body Request) {
 	if err != nil {
 		log.Fatal("error sending request", err)
 	}
+
 	defer resp.Body.Close()
 	out, err := os.Create(body.Name + ".zip")
 	if err != nil {
 		log.Fatal("error creating file", err)
 	}
+
 	defer out.Close()
 	_, err = io.Copy(out, resp.Body)
+
 	if err != nil {
 		log.Fatal("error copying response body to file", err)
 	}
