@@ -1,5 +1,5 @@
 package springboot
 
 const (
-	springUrl = "https://start.spring.io"
+	initializrUrl = "https://start.spring.io"
 )
