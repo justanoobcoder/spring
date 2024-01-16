@@ -3,15 +3,16 @@ package ui
 import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
+	springlist "github.com/justanoobcoder/spring/list"
 	"github.com/justanoobcoder/spring/springboot"
 )
 
 func getProjectTypes(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.Type.Values {
-		items = append(items, NormalListItem{
-			id:   v.ID,
-			name: v.Name,
+		items = append(items, springlist.NormalListItem{
+			Id:   v.ID,
+			Name: v.Name,
 		})
 	}
 	return items
@@ -22,11 +23,11 @@ func (m Model) updateProjectType(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(NormalListItem)
+			i, ok := m.list.SelectedItem().(springlist.NormalListItem)
 			if ok {
-				m.Type = i.id
+				m.Type = i.Id
 				m.state = chooseLanguage
-				m.list = NewNormalListModel("Choose Language", getLanguages(m.springboot),
+				m.list = springlist.NewNormalListModel("Choose Language", getLanguages(m.springboot),
 					m.springboot.Language.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil

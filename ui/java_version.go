@@ -10,9 +10,9 @@ import (
 func getJavaVersion(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.JavaVersion.Values {
-		items = append(items, NormalListItem{
-			id:   v.ID,
-			name: v.Name,
+		items = append(items, springlist.NormalListItem{
+			Id:   v.ID,
+			Name: v.Name,
 		})
 	}
 	return items
@@ -23,9 +23,9 @@ func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(NormalListItem)
+			i, ok := m.list.SelectedItem().(springlist.NormalListItem)
 			if ok {
-				m.JavaVersion = i.id
+				m.JavaVersion = i.Id
 				m.state = chooseDependencies
 				m.list = list.New(
 					getDependencies(m.springboot),

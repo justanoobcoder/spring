@@ -1,4 +1,4 @@
-package ui
+package springlist
 
 import (
 	"fmt"
@@ -11,8 +11,8 @@ import (
 )
 
 type NormalListItem struct {
-	id   string
-	name string
+	Id   string
+	Name string
 }
 
 func (i NormalListItem) FilterValue() string { return "" }
@@ -28,7 +28,7 @@ func (d NormalListItemDelegate) Render(w io.Writer, m list.Model, index int, ite
 		return
 	}
 
-	str := fmt.Sprintf("%d. %s", index+1, i.name)
+	str := fmt.Sprintf("%d. %s", index+1, i.Name)
 
 	fn := style.ItemStyle.Render
 	if index == m.Index() {
@@ -46,7 +46,7 @@ func NewNormalListModel(title string, items []list.Item, def string, width, heig
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(false)
 	for i := range items {
-		if items[i].(NormalListItem).id == def {
+		if items[i].(NormalListItem).Id == def {
 			l.Select(i)
 			break
 		}

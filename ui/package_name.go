@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
+	springlist "github.com/justanoobcoder/spring/list"
 )
 
 func (m Model) updatePackageName(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -15,7 +16,7 @@ func (m Model) updatePackageName(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case tea.KeyEnter:
 			m.PackageName = m.textInput.Value()
 			m.state = choosePackaging
-			m.list = NewNormalListModel("Choose Packaging", getPackagingOptions(m.springboot),
+			m.list = springlist.NewNormalListModel("Choose Packaging", getPackagingOptions(m.springboot),
 				m.springboot.Packaging.Default, m.list.Width(), m.list.Height())
 			return m, nil
 		}

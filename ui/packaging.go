@@ -3,15 +3,16 @@ package ui
 import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
+	springlist "github.com/justanoobcoder/spring/list"
 	"github.com/justanoobcoder/spring/springboot"
 )
 
 func getPackagingOptions(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.Packaging.Values {
-		items = append(items, NormalListItem{
-			id:   v.ID,
-			name: v.Name,
+		items = append(items, springlist.NormalListItem{
+			Id:   v.ID,
+			Name: v.Name,
 		})
 	}
 	return items
@@ -22,11 +23,11 @@ func (m Model) updatePackaging(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(NormalListItem)
+			i, ok := m.list.SelectedItem().(springlist.NormalListItem)
 			if ok {
-				m.Packaging = i.id
+				m.Packaging = i.Id
 				m.state = chooseJavaVersion
-				m.list = NewNormalListModel("Choose Java Version", getJavaVersion(m.springboot),
+				m.list = springlist.NewNormalListModel("Choose Java Version", getJavaVersion(m.springboot),
 					m.springboot.JavaVersion.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil

@@ -3,15 +3,16 @@ package ui
 import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
+	springlist "github.com/justanoobcoder/spring/list"
 	"github.com/justanoobcoder/spring/springboot"
 )
 
 func getLanguages(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.Language.Values {
-		items = append(items, NormalListItem{
-			id:   v.ID,
-			name: v.Name,
+		items = append(items, springlist.NormalListItem{
+			Id:   v.ID,
+			Name: v.Name,
 		})
 	}
 	return items
@@ -22,11 +23,11 @@ func (m Model) updateLanguage(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(NormalListItem)
+			i, ok := m.list.SelectedItem().(springlist.NormalListItem)
 			if ok {
-				m.Language = i.id
+				m.Language = i.Id
 				m.state = chooseBootVersion
-				m.list = NewNormalListModel("Choose Spring Boot Version", getBootVersions(m.springboot),
+				m.list = springlist.NewNormalListModel("Choose Spring Boot Version", getBootVersions(m.springboot),
 					m.springboot.BootVersion.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil

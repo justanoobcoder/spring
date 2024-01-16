@@ -3,6 +3,7 @@ package ui
 import (
 	"github.com/charmbracelet/bubbles/list"
 	"github.com/charmbracelet/bubbles/textinput"
+	springlist "github.com/justanoobcoder/spring/list"
 	"github.com/justanoobcoder/spring/springboot"
 )
 
@@ -50,7 +51,7 @@ type Model struct {
 
 func NewModel() *Model {
 	sp := springboot.GetSpringBoot()
-	l := NewNormalListModel("Choose Project Type", getProjectTypes(sp), sp.Type.Default, 0, 0)
+	l := springlist.NewNormalListModel("Choose Project Type", getProjectTypes(sp), sp.Type.Default, 0, 0)
 	ti := textinput.New()
 	ti.Placeholder = "Group ID"
 	ti.SetValue(sp.GroupID.Default)
