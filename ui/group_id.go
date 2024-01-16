@@ -6,7 +6,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) updateInputGroupId(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m Model) updateGroupId(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
 	switch msg := msg.(type) {
@@ -26,7 +26,7 @@ func (m Model) updateInputGroupId(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-func (m Model) viewInputGroupId() string {
+func (m Model) viewGroupId() string {
 	return fmt.Sprintf(
 		"Enter project Group ID:\n\n%s\n\n%s",
 		m.textInput.View(),

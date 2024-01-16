@@ -28,11 +28,11 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case chooseBootVersion:
 		return m.updateBootVersion(msg)
 	case inputGroupId:
-		return m.updateInputGroupId(msg)
+		return m.updateGroupId(msg)
 	case inputArtifactId:
 		return m.updateArtifactId(msg)
 	case inputName:
-		return m.updateName(msg)
+		return m.updateApplicationName(msg)
 	case inputDescription:
 		return m.updateDescription(msg)
 	case inputPackageName:
@@ -76,11 +76,11 @@ func (m Model) View() string {
 	case chooseBootVersion:
 		s = m.viewBootVersion()
 	case inputGroupId:
-		s = m.viewInputGroupId()
+		s = m.viewGroupId()
 	case inputArtifactId:
 		s = m.viewArtifactId()
 	case inputName:
-		s = m.viewName()
+		s = m.viewApplicationName()
 	case inputDescription:
 		s = m.viewDescription()
 	case inputPackageName:

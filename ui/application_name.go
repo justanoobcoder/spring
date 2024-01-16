@@ -6,7 +6,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) updateName(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m Model) updateApplicationName(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
 	switch msg := msg.(type) {
@@ -26,7 +26,7 @@ func (m Model) updateName(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-func (m Model) viewName() string {
+func (m Model) viewApplicationName() string {
 	return fmt.Sprintf(
 		"Enter project name:\n\n%s\n\n%s",
 		m.textInput.View(),
