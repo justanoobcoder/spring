@@ -9,7 +9,7 @@ import (
 func getLanguages(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.Language.Values {
-		items = append(items, normalListItem{
+		items = append(items, NormalListItem{
 			id:   v.ID,
 			name: v.Name,
 		})
@@ -22,7 +22,7 @@ func (m Model) updateLanguage(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(normalListItem)
+			i, ok := m.list.SelectedItem().(NormalListItem)
 			if ok {
 				m.Language = i.id
 				m.state = chooseBootVersion

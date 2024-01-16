@@ -12,7 +12,7 @@ func getDependencies(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.Dependencies.Values {
 		for _, v2 := range v.Values {
-			items = append(items, filteredListItem{
+			items = append(items, FilteredListItem{
 				id:       v2.ID,
 				title:    v2.Name,
 				category: v.Name,
@@ -30,7 +30,7 @@ func (m Model) updateDependencies(msg tea.Msg) (tea.Model, tea.Cmd) {
 		key := msg.String()
 		switch key {
 		case "enter", " ":
-			selected := m.list.SelectedItem().(filteredListItem)
+			selected := m.list.SelectedItem().(FilteredListItem)
 			if !selected.selected {
 				m.Dependencies = append(m.Dependencies, selected.id)
 			} else {
@@ -39,12 +39,12 @@ func (m Model) updateDependencies(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 			var newList []list.Item
 			for _, v := range m.list.Items() {
-				if v.(filteredListItem).id != selected.id {
+				if v.(FilteredListItem).id != selected.id {
 					newList = append(newList, v)
 				} else {
-					i := v.(filteredListItem)
+					i := v.(FilteredListItem)
 					newList = append([]list.Item{
-						filteredListItem{
+						FilteredListItem{
 							id:       i.id,
 							title:    i.title,
 							category: i.category,

@@ -8,27 +8,27 @@ import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/justanoobcoder/spring/ui/style"
+	"github.com/justanoobcoder/spring/style"
 	"github.com/muesli/reflow/truncate"
 )
 
 var docStyle = lipgloss.NewStyle().Margin(1, 2)
 
-type filteredListItem struct {
+type FilteredListItem struct {
 	id, title, category, desc string
 	selected                  bool
 }
 
-func (i filteredListItem) Title() string       { return i.title }
-func (i filteredListItem) Description() string { return i.desc }
-func (i filteredListItem) FilterValue() string { return i.title }
+func (i FilteredListItem) Title() string       { return i.title }
+func (i FilteredListItem) Description() string { return i.desc }
+func (i FilteredListItem) FilterValue() string { return i.title }
 
-type filteredListItemDelegate struct{}
+type FilteredListItemDelegate struct{}
 
-func (d filteredListItemDelegate) Height() int                             { return 2 }
-func (d filteredListItemDelegate) Spacing() int                            { return 1 }
-func (d filteredListItemDelegate) Update(_ tea.Msg, _ *list.Model) tea.Cmd { return nil }
-func (d filteredListItemDelegate) Render(w io.Writer, m list.Model, index int, listItem list.Item) {
+func (d FilteredListItemDelegate) Height() int                             { return 2 }
+func (d FilteredListItemDelegate) Spacing() int                            { return 1 }
+func (d FilteredListItemDelegate) Update(_ tea.Msg, _ *list.Model) tea.Cmd { return nil }
+func (d FilteredListItemDelegate) Render(w io.Writer, m list.Model, index int, item list.Item) {
 	var (
 		title, desc  string
 		choosen      bool
@@ -36,7 +36,7 @@ func (d filteredListItemDelegate) Render(w io.Writer, m list.Model, index int, l
 		s            = list.NewDefaultItemStyles()
 	)
 
-	if i, ok := listItem.(filteredListItem); ok {
+	if i, ok := item.(FilteredListItem); ok {
 		title = i.Title() + " - " + i.category
 		desc = i.Description()
 		choosen = i.selected
