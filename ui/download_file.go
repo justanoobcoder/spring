@@ -47,7 +47,7 @@ func (m Model) updateDownloadFile(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case statusMsg:
 		if msg == 200 {
-			m.message = "Downloaded file successfully"
+			m.message = "Downloaded file successfully!"
 			m.quitting = true
 			return m, tea.Quit
 		}
