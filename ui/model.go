@@ -13,16 +13,20 @@ const (
 	chooseProjectType state = iota
 	chooseBootVersion
 	chooseLanguage
-	inputGroupId
-	inputArtifactId
-	inputApplicationName
-	inputDescription
-	inputPackageName
-	inputVersion
+	inputMetaData
 	choosePackaging
 	chooseJavaVersion
 	chooseDependencies
 	downloadFile
+)
+
+const (
+	groupId = iota
+	artifactId
+	applicationName
+	description
+	packageName
+	version
 )
 
 type Model struct {
@@ -38,10 +42,14 @@ type Model struct {
 	Version      string
 	Packaging    string
 	JavaVersion  string
+	message      string
 	Dependencies []string
+	inputs       []textinput.Model
 	springBoot   springboot.SpringBoot
 	textInput    textinput.Model
+	focused      int
 	state        state
+	failed       bool
 	quitting     bool
 }
 
@@ -58,6 +66,51 @@ func NewModel() *Model {
 	)
 	ti := textinput.New()
 	ti.Focus()
+
+	inputs := make([]textinput.Model, 6)
+
+	inputs[groupId] = textinput.New()
+	inputs[groupId].Placeholder = sp.GroupID.Default
+	inputs[groupId].SetValue(sp.GroupID.Default)
+	inputs[groupId].Focus()
+	inputs[groupId].Width = 60
+	inputs[groupId].Prompt = ""
+
+	inputs[artifactId] = textinput.New()
+	inputs[artifactId].Placeholder = sp.ArtifactID.Default
+	inputs[artifactId].SetValue(sp.ArtifactID.Default)
+	inputs[artifactId].Focus()
+	inputs[artifactId].Width = 60
+	inputs[artifactId].Prompt = ""
+
+	inputs[applicationName] = textinput.New()
+	inputs[applicationName].Placeholder = sp.Name.Default
+	inputs[applicationName].SetValue(sp.Name.Default)
+	inputs[applicationName].Focus()
+	inputs[applicationName].Width = 60
+	inputs[applicationName].Prompt = ""
+
+	inputs[description] = textinput.New()
+	inputs[description].Placeholder = sp.Description.Default
+	inputs[description].SetValue(sp.Description.Default)
+	inputs[description].Focus()
+	inputs[description].Width = 60
+	inputs[description].Prompt = ""
+
+	inputs[packageName] = textinput.New()
+	inputs[packageName].Placeholder = sp.PackageName.Default
+	inputs[packageName].SetValue(sp.PackageName.Default)
+	inputs[packageName].Focus()
+	inputs[packageName].Width = 60
+	inputs[packageName].Prompt = ""
+
+	inputs[version] = textinput.New()
+	inputs[version].Placeholder = sp.Version.Default
+	inputs[version].SetValue(sp.Version.Default)
+	inputs[version].Focus()
+	inputs[version].Width = 60
+	inputs[version].Prompt = ""
+
 	return &Model{
 		Packaging:    sp.Packaging.Default,
 		JavaVersion:  sp.JavaVersion.Default,
@@ -75,6 +128,9 @@ func NewModel() *Model {
 		state:        chooseProjectType,
 		list:         l,
 		textInput:    ti,
+		inputs:       inputs,
+		focused:      0,
+		failed:       false,
 		quitting:     false,
 	}
 }

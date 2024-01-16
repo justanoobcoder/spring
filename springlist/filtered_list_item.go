@@ -94,7 +94,7 @@ func (d FilteredListItemDelegate) Render(w io.Writer, m list.Model, index int, i
 		desc = s.NormalDesc.Render(desc)
 	}
 	if choosen {
-		title = style.ChoosenTitleStyle.Render(fmt.Sprintf("%s %s", title, "✓"))
+		title = style.ChoosenTitleStyle.Render(fmt.Sprintf("%s %s", title, style.SpringBootIcon))
 		desc = style.ChoosenDescStyle.Render(desc)
 	} else {
 		title = s.DimmedTitle.Render(title)

@@ -47,5 +47,5 @@ func (m Model) updatePackaging(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewPackaging() string {
-	return "\n" + m.list.View()
+	return "\n  " + m.list.View()
 }

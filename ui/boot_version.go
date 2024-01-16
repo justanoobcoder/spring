@@ -26,9 +26,10 @@ func (m Model) updateBootVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 			i, ok := m.list.SelectedItem().(springlist.NormalListItem)
 			if ok {
 				m.BootVersion = i.Id
-				m.state = inputGroupId
-				m.textInput.Placeholder = m.GroupId
-				m.textInput.SetValue(m.GroupId)
+				m.state = inputMetaData
+				// m.state = inputGroupId
+				// m.textInput.Placeholder = m.GroupId
+				// m.textInput.SetValue(m.GroupId)
 			}
 			return m, nil
 		}
@@ -43,5 +44,5 @@ func (m Model) updateBootVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewBootVersion() string {
-	return "\n" + m.list.View()
+	return "\n  " + m.list.View()
 }

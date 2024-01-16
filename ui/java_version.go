@@ -5,6 +5,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/justanoobcoder/spring/springboot"
 	springlist "github.com/justanoobcoder/spring/springlist"
+	"github.com/justanoobcoder/spring/style"
 )
 
 func getJavaVersion(sp springboot.SpringBoot) []list.Item {
@@ -30,9 +31,10 @@ func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.list = list.New(
 					getDependencies(m.springBoot),
 					springlist.FilteredListItemDelegate{},
-					m.list.Width()/2, m.list.Height(),
+					m.list.Width()/2, m.list.Height()-3,
 				)
 				m.list.Title = "Dependencies"
+				m.list.Styles.Title = style.TitleStyle
 				m.list.SetShowStatusBar(false)
 			}
 			return m, nil
@@ -48,5 +50,5 @@ func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewJavaVersion() string {
-	return "\n" + m.list.View()
+	return "\n  " + m.list.View()
 }

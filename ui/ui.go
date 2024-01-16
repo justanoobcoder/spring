@@ -2,13 +2,14 @@ package ui
 
 import (
 	"fmt"
+	"log"
 
+	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/justanoobcoder/spring/style"
 )
 
 func (m Model) Init() tea.Cmd {
-	return nil
+	return textinput.Blink
 }
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -16,7 +17,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c":
-			m.quitting = true
 			return m, tea.Quit
 		}
 	}
@@ -27,16 +27,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m.updateLanguage(msg)
 	case chooseBootVersion:
 		return m.updateBootVersion(msg)
-	case inputGroupId:
-		return m.updateGroupId(msg)
-	case inputArtifactId:
-		return m.updateArtifactId(msg)
-	case inputApplicationName:
-		return m.updateApplicationName(msg)
-	case inputDescription:
-		return m.updateDescription(msg)
-	case inputPackageName:
-		return m.updatePackageName(msg)
+	case inputMetaData:
+		return m.updateMetaData(msg)
 	case choosePackaging:
 		return m.updatePackaging(msg)
 	case chooseJavaVersion:
@@ -51,21 +43,11 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m Model) View() string {
 	if m.quitting {
-		return style.QuitTextStyle.Render(
-			fmt.Sprintf("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s\n%v",
-				m.Type,
-				m.Language,
-				m.BootVersion,
-				m.GroupId,
-				m.ArtifactId,
-				m.Name,
-				m.Description,
-				m.PackageName,
-				m.Packaging,
-				m.JavaVersion,
-				m.Dependencies,
-			),
-		)
+		log.Println("quitting", m.message)
+		if m.failed {
+			return fmt.Sprintf("%s\n\n%s", m.message, "ahuhu")
+		}
+		return fmt.Sprintf("%s\n\n%s", m.message, "ahihi")
 	}
 	var s string
 	switch m.state {
@@ -75,16 +57,8 @@ func (m Model) View() string {
 		s = m.viewLanguage()
 	case chooseBootVersion:
 		s = m.viewBootVersion()
-	case inputGroupId:
-		s = m.viewGroupId()
-	case inputArtifactId:
-		s = m.viewArtifactId()
-	case inputApplicationName:
-		s = m.viewApplicationName()
-	case inputDescription:
-		s = m.viewDescription()
-	case inputPackageName:
-		s = m.viewPackageName()
+	case inputMetaData:
+		s = m.viewMetaData()
 	case choosePackaging:
 		s = m.viewPackaging()
 	case chooseJavaVersion:

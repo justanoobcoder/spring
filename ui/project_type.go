@@ -47,5 +47,5 @@ func (m Model) updateProjectType(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewProjectType() string {
-	return "\n" + m.list.View()
+	return "\n  " + m.list.View()
 }

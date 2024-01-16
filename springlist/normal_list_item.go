@@ -33,7 +33,8 @@ func (d NormalListItemDelegate) Render(w io.Writer, m list.Model, index int, ite
 	fn := style.ItemStyle.Render
 	if index == m.Index() {
 		fn = func(s ...string) string {
-			return style.SelectedItemStyle.Render("> " + strings.Join(s, " "))
+			return style.SelectedNormalListItemStyle.
+				Render(style.SpringBootIcon + " " + strings.Join(s, " "))
 		}
 	}
 
@@ -43,6 +44,7 @@ func (d NormalListItemDelegate) Render(w io.Writer, m list.Model, index int, ite
 func NewNormalListModel(title string, items []list.Item, def string, width, height int) list.Model {
 	l := list.New(items, NormalListItemDelegate{}, width, height)
 	l.Title = title
+	l.Styles.Title = style.TitleStyle
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(false)
 	for i := range items {

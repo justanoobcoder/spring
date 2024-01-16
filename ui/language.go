@@ -46,5 +46,5 @@ func (m Model) updateLanguage(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewLanguage() string {
-	return "\n" + m.list.View()
+	return "\n  " + m.list.View()
 }

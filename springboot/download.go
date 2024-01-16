@@ -51,7 +51,7 @@ func Download(reqBody Request, filename string) (int, error) {
 		strings.NewReader(urlEncode(reqBody)),
 	)
 	if err != nil {
-		return 0, fmt.Errorf("error creating download request: %v", err)
+		return 0, fmt.Errorf("error creating download request\n%v", err)
 	}
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
@@ -59,21 +59,27 @@ func Download(reqBody Request, filename string) (int, error) {
 	client := http.Client{Timeout: timeout}
 	resp, err := client.Do(req)
 	if err != nil {
-		return 0, fmt.Errorf("error sending download request: %v", err)
+		return 0, fmt.Errorf("error sending download request\n%v", err)
 	}
 	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return resp.StatusCode,
+			fmt.Errorf("error downloading file\nstatus code: %s\nmessage: %v",
+				resp.Status, resp.Body,
+			)
+	}
 
 	// golang doesn't have a built-in way to download a file from a request,
 	// so we have to create a file and copy the response body to it
 	file, err := os.Create(filename)
 	if err != nil {
-		return 0, fmt.Errorf("error creating download file: %v", err)
+		return 0, fmt.Errorf("error creating download file\n%v", err)
 	}
 	defer file.Close()
 
 	_, err = io.Copy(file, resp.Body)
 	if err != nil {
-		return 0, fmt.Errorf("error copying download file: %v", err)
+		return 0, fmt.Errorf("error copying download file\n%v", err)
 	}
 
 	return resp.StatusCode, nil

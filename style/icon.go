@@ -1,0 +1,3 @@
+package style
+
+const SpringBootIcon = "🌱"

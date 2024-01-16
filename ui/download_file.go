@@ -47,15 +47,18 @@ func (m Model) updateDownloadFile(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case statusMsg:
 		if msg == 200 {
+			m.message = "Downloaded file successfully"
 			m.quitting = true
 			return m, tea.Quit
 		}
 		return m, tea.Quit
 	case errMsg:
+		m.failed = true
+		m.message = msg.Error()
+		m.quitting = true
 		return m, tea.Quit
-	default:
-		return m, nil
 	}
+	return m, nil
 }
 
 func (m Model) viewDownloadFile() string {
