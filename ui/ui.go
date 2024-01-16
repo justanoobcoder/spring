@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/justanoobcoder/spring/ui/style"
+	"github.com/justanoobcoder/spring/style"
 )
 
 func (m Model) Init() tea.Cmd {
