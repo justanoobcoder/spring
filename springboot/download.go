@@ -3,6 +3,7 @@ package springboot
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -63,9 +64,13 @@ func Download(reqBody Request, filename string) (int, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
+		b, err := io.ReadAll(resp.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
 		return resp.StatusCode,
-			fmt.Errorf("error downloading file\nstatus code: %s\nmessage: %v",
-				resp.Status, resp.Body,
+			fmt.Errorf("error downloading file\nStatus: %s\nMessage: %v",
+				resp.Status, string(b),
 			)
 	}
 
