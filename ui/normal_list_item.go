@@ -7,23 +7,23 @@ import (
 
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/justanoobcoder/spring/ui/style"
+	"github.com/justanoobcoder/spring/style"
 )
 
-type normalListItem struct {
+type NormalListItem struct {
 	id   string
 	name string
 }
 
-func (i normalListItem) FilterValue() string { return "" }
+func (i NormalListItem) FilterValue() string { return "" }
 
-type normalListItemDelegate struct{}
+type NormalListItemDelegate struct{}
 
-func (d normalListItemDelegate) Height() int                             { return 1 }
-func (d normalListItemDelegate) Spacing() int                            { return 0 }
-func (d normalListItemDelegate) Update(_ tea.Msg, _ *list.Model) tea.Cmd { return nil }
-func (d normalListItemDelegate) Render(w io.Writer, m list.Model, index int, item list.Item) {
-	i, ok := item.(normalListItem)
+func (d NormalListItemDelegate) Height() int                             { return 1 }
+func (d NormalListItemDelegate) Spacing() int                            { return 0 }
+func (d NormalListItemDelegate) Update(_ tea.Msg, _ *list.Model) tea.Cmd { return nil }
+func (d NormalListItemDelegate) Render(w io.Writer, m list.Model, index int, item list.Item) {
+	i, ok := item.(NormalListItem)
 	if !ok {
 		return
 	}
@@ -41,12 +41,12 @@ func (d normalListItemDelegate) Render(w io.Writer, m list.Model, index int, ite
 }
 
 func NewNormalListModel(title string, items []list.Item, def string, width, height int) list.Model {
-	l := list.New(items, normalListItemDelegate{}, width, height)
+	l := list.New(items, NormalListItemDelegate{}, width, height)
 	l.Title = title
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(false)
 	for i := range items {
-		if items[i].(normalListItem).id == def {
+		if items[i].(NormalListItem).id == def {
 			l.Select(i)
 			break
 		}
