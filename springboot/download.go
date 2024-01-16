@@ -2,6 +2,7 @@ package springboot
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -26,7 +27,7 @@ func urlEncode(req Request) string {
 func Download(body Request, filename string) (int, error) {
 	req, err := http.NewRequest(
 		"POST",
-		"https://start.spring.io/"+filename,
+		fmt.Sprintf("%s/%s", springUrl, filename),
 		strings.NewReader(urlEncode(body)),
 	)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")

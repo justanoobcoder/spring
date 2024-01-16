@@ -135,9 +135,8 @@ type Guide struct {
 }
 
 func GetSpringBoot() SpringBoot {
-	const url = "https://start.spring.io"
 	http.DefaultClient.Timeout = 10 * time.Second
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", springUrl, nil)
 	req.Header.Set("Accept", "application/json")
 	if err != nil {
 		log.Fatal(err)
