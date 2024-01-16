@@ -2,10 +2,10 @@ package ui
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/justanoobcoder/spring/style"
 )
 
 func (m Model) Init() tea.Cmd {
@@ -43,11 +43,10 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m Model) View() string {
 	if m.quitting {
-		log.Println("quitting", m.message)
 		if m.failed {
-			return fmt.Sprintf("%s\n\n%s", m.message, "ahuhu")
+			return fmt.Sprintf("%s %s", style.ErrorStyle.Render("Error:"), m.message) + "\n"
 		}
-		return fmt.Sprintf("%s\n\n%s", m.message, "ahihi")
+		return style.SuccessStyle.Render(m.message) + "\n"
 	}
 	var s string
 	switch m.state {
