@@ -16,8 +16,8 @@ func (m Model) updateMetaData(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.Type {
 		case tea.KeyCtrlC:
 			return m, tea.Quit
-		case tea.KeyEnter:
-			if m.focused == len(m.inputs)-1 {
+		case tea.KeyEnter, tea.KeyCtrlS:
+			if m.focused == len(m.inputs)-1 || msg.Type == tea.KeyCtrlS {
 				input := m.inputs[groupId].Value()
 				if input != "" {
 					m.GroupId = input
