@@ -5,18 +5,20 @@ import (
 
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
+	springlist "github.com/justanoobcoder/spring/list"
 	"github.com/justanoobcoder/spring/springboot"
+	"github.com/justanoobcoder/spring/style"
 )
 
 func getDependencies(sp springboot.SpringBoot) []list.Item {
 	var items []list.Item
 	for _, v := range sp.Dependencies.Values {
 		for _, v2 := range v.Values {
-			items = append(items, FilteredListItem{
-				id:       v2.ID,
-				title:    v2.Name,
-				category: v.Name,
-				desc:     v2.Description,
+			items = append(items, springlist.FilteredListItem{
+				Id:       v2.ID,
+				Name:     v2.Name,
+				Category: v.Name,
+				Desc:     v2.Description,
 			})
 		}
 	}
@@ -30,26 +32,26 @@ func (m Model) updateDependencies(msg tea.Msg) (tea.Model, tea.Cmd) {
 		key := msg.String()
 		switch key {
 		case "enter", " ":
-			selected := m.list.SelectedItem().(FilteredListItem)
-			if !selected.selected {
-				m.Dependencies = append(m.Dependencies, selected.id)
+			selected := m.list.SelectedItem().(springlist.FilteredListItem)
+			if !selected.Selected {
+				m.Dependencies = append(m.Dependencies, selected.Id)
 			} else {
-				idx := slices.Index(m.Dependencies, selected.id)
+				idx := slices.Index(m.Dependencies, selected.Id)
 				m.Dependencies = append(m.Dependencies[:idx], m.Dependencies[idx+1:]...)
 			}
 			var newList []list.Item
 			for _, v := range m.list.Items() {
-				if v.(FilteredListItem).id != selected.id {
+				if v.(springlist.FilteredListItem).Id != selected.Id {
 					newList = append(newList, v)
 				} else {
-					i := v.(FilteredListItem)
+					i := v.(springlist.FilteredListItem)
 					newList = append([]list.Item{
-						FilteredListItem{
-							id:       i.id,
-							title:    i.title,
-							category: i.category,
-							desc:     i.desc,
-							selected: !i.selected,
+						springlist.FilteredListItem{
+							Id:       i.Id,
+							Name:     i.Name,
+							Category: i.Category,
+							Desc:     i.Desc,
+							Selected: !i.Selected,
 						},
 					},
 						newList...)
@@ -70,5 +72,5 @@ func (m Model) updateDependencies(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewDependencies() string {
-	return docStyle.Render(m.list.View())
+	return style.DocStyle.Render(m.list.View())
 }

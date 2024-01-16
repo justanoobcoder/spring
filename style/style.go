@@ -19,4 +19,5 @@ var (
 				Padding(0, 0, 0, 1)
 	ChoosenDescStyle = ChoosenTitleStyle.Copy().
 				Foreground(lipgloss.AdaptiveColor{Light: "#84f5a2", Dark: "#84f5a2"})
+	DocStyle = lipgloss.NewStyle().Margin(1, 2)
 )

@@ -3,6 +3,7 @@ package ui
 import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
+	springlist "github.com/justanoobcoder/spring/list"
 	"github.com/justanoobcoder/spring/springboot"
 )
 
@@ -28,7 +29,7 @@ func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.state = chooseDependencies
 				m.list = list.New(
 					getDependencies(m.springboot),
-					FilteredListItemDelegate{},
+					springlist.FilteredListItemDelegate{},
 					m.list.Width()/2,
 					m.list.Height(),
 				)

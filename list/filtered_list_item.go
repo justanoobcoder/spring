@@ -1,4 +1,4 @@
-package ui
+package springlist
 
 import (
 	"fmt"
@@ -12,16 +12,14 @@ import (
 	"github.com/muesli/reflow/truncate"
 )
 
-var docStyle = lipgloss.NewStyle().Margin(1, 2)
-
 type FilteredListItem struct {
-	id, title, category, desc string
-	selected                  bool
+	Id, Name, Category, Desc string
+	Selected                 bool
 }
 
-func (i FilteredListItem) Title() string       { return i.title }
-func (i FilteredListItem) Description() string { return i.desc }
-func (i FilteredListItem) FilterValue() string { return i.title }
+func (i FilteredListItem) Title() string       { return i.Name }
+func (i FilteredListItem) Description() string { return i.Desc }
+func (i FilteredListItem) FilterValue() string { return i.Name }
 
 type FilteredListItemDelegate struct{}
 
@@ -37,9 +35,9 @@ func (d FilteredListItemDelegate) Render(w io.Writer, m list.Model, index int, i
 	)
 
 	if i, ok := item.(FilteredListItem); ok {
-		title = i.Title() + " - " + i.category
+		title = i.Title() + " - " + i.Category
 		desc = i.Description()
-		choosen = i.selected
+		choosen = i.Selected
 	} else {
 		return
 	}
