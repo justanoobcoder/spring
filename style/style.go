@@ -6,6 +6,12 @@ import (
 )
 
 var (
+	ErrorStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#ff0033")).
+			Bold(true)
+	SuccessStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#5f9f2b")).
+			Bold(true)
 	TitleStyle = lipgloss.NewStyle().
 			Bold(true).
 			Foreground(lipgloss.Color("#fff")).
