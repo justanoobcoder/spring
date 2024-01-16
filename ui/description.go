@@ -16,7 +16,7 @@ func (m Model) updateDescription(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.Description = m.textInput.Value()
 			m.state = inputPackageName
 			m.textInput.Placeholder = "Package Name"
-			m.textInput.SetValue(m.springBoot.PackageName.Default)
+			m.textInput.SetValue(m.PackageName)
 			m.textInput.CursorEnd()
 			return m, nil
 		}
@@ -28,7 +28,7 @@ func (m Model) updateDescription(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m Model) viewDescription() string {
 	return fmt.Sprintf(
-		"Enter project description:\n\n%s\n\n%s",
+		"Description:\n\n%s\n\n%s",
 		m.textInput.View(),
 		"(esc to quit)",
 	) + "\n"

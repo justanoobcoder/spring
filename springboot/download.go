@@ -31,9 +31,9 @@ type Request struct {
 // type=maven-project&language=java&groupId=com.example
 // the key names are the same as the `json` tag name of the fields
 // the values are the string values of the fields
-func urlEncode(req Request) string {
+func urlEncode(reqBody Request) string {
 	data := url.Values{}
-	val := reflect.ValueOf(req)
+	val := reflect.ValueOf(reqBody)
 	for i := 0; i < val.Type().NumField(); i++ {
 		k := val.Type().Field(i).Tag.Get("json")
 		v := val.Field(i).String()
@@ -43,12 +43,12 @@ func urlEncode(req Request) string {
 	return data.Encode()
 }
 
-func Download(body Request, filename string) (int, error) {
+func Download(reqBody Request, filename string) (int, error) {
 	// the request must be a form url encoded POST request to work
 	req, err := http.NewRequest(
 		"POST",
 		fmt.Sprintf("%s/%s", initializrUrl, filename),
-		strings.NewReader(urlEncode(body)),
+		strings.NewReader(urlEncode(reqBody)),
 	)
 	if err != nil {
 		return 0, fmt.Errorf("error creating download request: %v", err)

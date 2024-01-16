@@ -7,10 +7,6 @@ import (
 	springlist "github.com/justanoobcoder/spring/springlist"
 )
 
-type errMsg struct{ error }
-
-func (e errMsg) Error() string { return e.error.Error() }
-
 type state int
 
 const (
@@ -26,7 +22,7 @@ const (
 	choosePackaging
 	chooseJavaVersion
 	chooseDependencies
-	downloadFileState
+	downloadFile
 )
 
 type Model struct {

@@ -16,8 +16,12 @@ func (m Model) updatePackageName(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case tea.KeyEnter:
 			m.PackageName = m.textInput.Value()
 			m.state = choosePackaging
-			m.list = springlist.NewNormalListModel("Choose Packaging", getPackagingOptions(m.springBoot),
-				m.springBoot.Packaging.Default, m.list.Width(), m.list.Height())
+			m.list = springlist.NewNormalListModel(
+				"Packaging",
+				getPackagingOptions(m.springBoot),
+				m.Packaging,
+				m.list.Width(), m.list.Height(),
+			)
 			return m, nil
 		}
 	}
@@ -28,7 +32,7 @@ func (m Model) updatePackageName(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m Model) viewPackageName() string {
 	return fmt.Sprintf(
-		"Enter project package name:\n\n%s\n\n%s",
+		"Package Name:\n\n%s\n\n%s",
 		m.textInput.View(),
 		"(esc to quit)",
 	) + "\n"

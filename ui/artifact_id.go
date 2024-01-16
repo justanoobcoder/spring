@@ -16,7 +16,7 @@ func (m Model) updateArtifactId(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.ArtifactId = m.textInput.Value()
 			m.state = inputApplicationName
 			m.textInput.Placeholder = "Name"
-			m.textInput.SetValue(m.springBoot.Name.Default)
+			m.textInput.SetValue(m.Name)
 			m.textInput.CursorEnd()
 			return m, nil
 		}
@@ -28,7 +28,7 @@ func (m Model) updateArtifactId(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m Model) viewArtifactId() string {
 	return fmt.Sprintf(
-		"Enter project Artifact ID:\n\n%s\n\n%s",
+		"Artifact ID:\n\n%s\n\n%s",
 		m.textInput.View(),
 		"(esc to quit)",
 	) + "\n"

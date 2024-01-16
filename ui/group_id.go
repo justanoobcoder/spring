@@ -16,7 +16,7 @@ func (m Model) updateGroupId(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.GroupId = m.textInput.Value()
 			m.state = inputArtifactId
 			m.textInput.Placeholder = "Artifact ID"
-			m.textInput.SetValue(m.springBoot.ArtifactID.Default)
+			m.textInput.SetValue(m.ArtifactId)
 			m.textInput.CursorEnd()
 			return m, nil
 		}
@@ -28,7 +28,7 @@ func (m Model) updateGroupId(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m Model) viewGroupId() string {
 	return fmt.Sprintf(
-		"Enter project Group ID:\n\n%s\n\n%s",
+		"Group ID:\n\n%s\n\n%s",
 		m.textInput.View(),
 		"(esc to quit)",
 	) + "\n"

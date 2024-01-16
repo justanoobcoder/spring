@@ -16,7 +16,7 @@ func (m Model) updateApplicationName(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.Name = m.textInput.Value()
 			m.state = inputDescription
 			m.textInput.Placeholder = "Description"
-			m.textInput.SetValue(m.springBoot.Description.Default)
+			m.textInput.SetValue(m.Description)
 			m.textInput.CursorEnd()
 			return m, nil
 		}
@@ -28,7 +28,7 @@ func (m Model) updateApplicationName(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m Model) viewApplicationName() string {
 	return fmt.Sprintf(
-		"Enter project name:\n\n%s\n\n%s",
+		"Application Name:\n\n%s\n\n%s",
 		m.textInput.View(),
 		"(esc to quit)",
 	) + "\n"

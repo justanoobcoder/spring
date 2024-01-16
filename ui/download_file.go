@@ -7,22 +7,26 @@ import (
 	"github.com/justanoobcoder/spring/springboot"
 )
 
+type errMsg struct{ error }
+
+func (e errMsg) Error() string { return e.error.Error() }
+
 type statusMsg int
 
-func (m Model) downloadFile() tea.Msg {
-	body := springboot.Request{
-		Dependencies: strings.Join(m.Dependencies, ","),
-		JavaVersion:  m.JavaVersion,
+func (m Model) downloadFileMsg() tea.Msg {
+	request := springboot.Request{
 		Type:         m.Type,
-		Version:      m.Version,
-		Packaging:    m.Packaging,
-		Language:     m.Language,
 		BootVersion:  m.BootVersion,
+		Language:     m.Language,
 		GroupId:      m.GroupId,
 		ArtifactId:   m.ArtifactId,
 		Name:         m.Name,
 		Description:  m.Description,
 		PackageName:  m.PackageName,
+		Version:      m.Version,
+		Packaging:    m.Packaging,
+		JavaVersion:  m.JavaVersion,
+		Dependencies: strings.Join(m.Dependencies, ","),
 	}
 	var filename string
 	for _, t := range m.springBoot.Type.Values {
@@ -31,7 +35,7 @@ func (m Model) downloadFile() tea.Msg {
 			break
 		}
 	}
-	statusCode, err := springboot.Download(body, filename)
+	statusCode, err := springboot.Download(request, filename)
 	if err != nil {
 		return errMsg{err}
 	}

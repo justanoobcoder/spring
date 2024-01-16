@@ -30,10 +30,9 @@ func (m Model) updateJavaVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.list = list.New(
 					getDependencies(m.springBoot),
 					springlist.FilteredListItemDelegate{},
-					m.list.Width()/2,
-					m.list.Height(),
+					m.list.Width()/2, m.list.Height(),
 				)
-				m.list.Title = "Choose Dependencies"
+				m.list.Title = "Dependencies"
 				m.list.SetShowStatusBar(false)
 			}
 			return m, nil
