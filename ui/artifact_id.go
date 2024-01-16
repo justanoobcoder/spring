@@ -14,9 +14,9 @@ func (m Model) updateArtifactId(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.Type {
 		case tea.KeyEnter:
 			m.ArtifactId = m.textInput.Value()
-			m.state = inputName
+			m.state = inputApplicationName
 			m.textInput.Placeholder = "Name"
-			m.textInput.SetValue(m.springboot.Name.Default)
+			m.textInput.SetValue(m.springBoot.Name.Default)
 			m.textInput.CursorEnd()
 			return m, nil
 		}

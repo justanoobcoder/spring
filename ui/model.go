@@ -19,7 +19,7 @@ const (
 	chooseLanguage
 	inputGroupId
 	inputArtifactId
-	inputName
+	inputApplicationName
 	inputDescription
 	inputPackageName
 	inputVersion
@@ -31,31 +31,35 @@ const (
 
 type Model struct {
 	list         list.Model
-	PackageName  string
-	Version      string
+	Type         string
 	BootVersion  string
+	Language     string
 	GroupId      string
 	ArtifactId   string
-	Packaging    string
-	Description  string
-	Language     string
 	Name         string
-	Type         string
+	Description  string
+	PackageName  string
+	Version      string
+	Packaging    string
 	JavaVersion  string
-	springboot   springboot.SpringBoot
 	Dependencies []string
+	springBoot   springboot.SpringBoot
 	textInput    textinput.Model
 	state        state
 	quitting     bool
 }
 
 func NewModel() *Model {
-	sp := springboot.GetSpringBoot()
-	l := springlist.NewNormalListModel("Choose Project Type", getProjectTypes(sp), sp.Type.Default, 0, 0)
-	ti := textinput.New()
-	ti.Placeholder = "Group ID"
-	ti.SetValue(sp.GroupID.Default)
-	ti.Focus()
+	sp, err := springboot.NewSpringBoot()
+	if err != nil {
+		panic(err)
+	}
+	l := springlist.NewNormalListModel(
+		"Project Type",
+		getProjectTypes(sp),
+		sp.Type.Default,
+		0, 0,
+	)
 	return &Model{
 		Packaging:    sp.Packaging.Default,
 		JavaVersion:  sp.JavaVersion.Default,
@@ -69,10 +73,9 @@ func NewModel() *Model {
 		Version:      sp.Version.Default,
 		Type:         sp.Type.Default,
 		Dependencies: []string{},
-		list:         l,
-		textInput:    ti,
-		springboot:   sp,
+		springBoot:   sp,
 		state:        chooseProjectType,
+		list:         l,
 		quitting:     false,
 	}
 }

@@ -1,26 +1,12 @@
 package springboot
 
 import (
+	"fmt"
 	"io"
-	"log"
 	"net/http"
-	"time"
 )
 
-type Request struct {
-	Dependencies string `json:"dependencies"`
-	JavaVersion  string `json:"javaVersion"`
-	Type         string `json:"type"`
-	Version      string `json:"version"`
-	Packaging    string `json:"packaging"`
-	Language     string `json:"language"`
-	BootVersion  string `json:"platformVersion"`
-	GroupId      string `json:"groupId"`
-	ArtifactId   string `json:"artifactId"`
-	Name         string `json:"name"`
-	Description  string `json:"description"`
-	PackageName  string `json:"packageName"`
-}
+// these are models that store the response from the spring initializr api
 
 type SpringBoot struct {
 	GroupID      ArtifactID             `json:"groupId"`
@@ -134,28 +120,29 @@ type Guide struct {
 	HomeArray []Home
 }
 
-func GetSpringBoot() SpringBoot {
-	http.DefaultClient.Timeout = 10 * time.Second
-	req, err := http.NewRequest("GET", springUrl, nil)
+func NewSpringBoot() (SpringBoot, error) {
+	client := http.Client{Timeout: timeout}
+	req, err := http.NewRequest("GET", initializrUrl, nil)
 	req.Header.Set("Accept", "application/json")
 	if err != nil {
-		log.Fatal(err)
+		return SpringBoot{}, fmt.Errorf("error creating spring boot request: %v", err)
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := client.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		return SpringBoot{}, fmt.Errorf("error sending spring boot request: %v", err)
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		return SpringBoot{}, fmt.Errorf("error reading spring boot response: %v", err)
 	}
 
 	springBoot, err := UnmarshalSpringBoot(body)
 	if err != nil {
-		log.Fatal(err)
+		return SpringBoot{}, fmt.Errorf("error unmarshalling spring boot response: %v", err)
 	}
-	return springBoot
+
+	return springBoot, nil
 }

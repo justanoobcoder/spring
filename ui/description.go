@@ -16,7 +16,7 @@ func (m Model) updateDescription(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.Description = m.textInput.Value()
 			m.state = inputPackageName
 			m.textInput.Placeholder = "Package Name"
-			m.textInput.SetValue(m.springboot.PackageName.Default)
+			m.textInput.SetValue(m.springBoot.PackageName.Default)
 			m.textInput.CursorEnd()
 			return m, nil
 		}

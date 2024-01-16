@@ -25,7 +25,7 @@ func (m Model) downloadFile() tea.Msg {
 		PackageName:  m.PackageName,
 	}
 	var filename string
-	for _, t := range m.springboot.Type.Values {
+	for _, t := range m.springBoot.Type.Values {
 		if t.ID == m.Type {
 			filename = strings.TrimPrefix(t.Action, "/")
 			break

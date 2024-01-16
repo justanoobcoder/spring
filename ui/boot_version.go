@@ -2,6 +2,7 @@ package ui
 
 import (
 	"github.com/charmbracelet/bubbles/list"
+	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/justanoobcoder/spring/springboot"
 	springlist "github.com/justanoobcoder/spring/springlist"
@@ -27,6 +28,11 @@ func (m Model) updateBootVersion(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if ok {
 				m.BootVersion = i.Id
 				m.state = inputGroupId
+				ti := textinput.New()
+				ti.Placeholder = "Group ID"
+				ti.SetValue(m.GroupId)
+				ti.Focus()
+				m.textInput = ti
 			}
 			return m, nil
 		}

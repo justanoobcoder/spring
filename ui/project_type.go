@@ -27,8 +27,8 @@ func (m Model) updateProjectType(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if ok {
 				m.Type = i.Id
 				m.state = chooseLanguage
-				m.list = springlist.NewNormalListModel("Choose Language", getLanguages(m.springboot),
-					m.springboot.Language.Default, m.list.Width(), m.list.Height())
+				m.list = springlist.NewNormalListModel("Choose Language", getLanguages(m.springBoot),
+					m.springBoot.Language.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil
 		}

@@ -27,8 +27,8 @@ func (m Model) updateLanguage(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if ok {
 				m.Language = i.Id
 				m.state = chooseBootVersion
-				m.list = springlist.NewNormalListModel("Choose Spring Boot Version", getBootVersions(m.springboot),
-					m.springboot.BootVersion.Default, m.list.Width(), m.list.Height())
+				m.list = springlist.NewNormalListModel("Choose Spring Boot Version", getBootVersions(m.springBoot),
+					m.springBoot.BootVersion.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil
 		}

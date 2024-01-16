@@ -27,8 +27,8 @@ func (m Model) updatePackaging(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if ok {
 				m.Packaging = i.Id
 				m.state = chooseJavaVersion
-				m.list = springlist.NewNormalListModel("Choose Java Version", getJavaVersion(m.springboot),
-					m.springboot.JavaVersion.Default, m.list.Width(), m.list.Height())
+				m.list = springlist.NewNormalListModel("Choose Java Version", getJavaVersion(m.springBoot),
+					m.springBoot.JavaVersion.Default, m.list.Width(), m.list.Height())
 			}
 			return m, nil
 		}

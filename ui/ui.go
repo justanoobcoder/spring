@@ -31,7 +31,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m.updateGroupId(msg)
 	case inputArtifactId:
 		return m.updateArtifactId(msg)
-	case inputName:
+	case inputApplicationName:
 		return m.updateApplicationName(msg)
 	case inputDescription:
 		return m.updateDescription(msg)
@@ -79,7 +79,7 @@ func (m Model) View() string {
 		s = m.viewGroupId()
 	case inputArtifactId:
 		s = m.viewArtifactId()
-	case inputName:
+	case inputApplicationName:
 		s = m.viewApplicationName()
 	case inputDescription:
 		s = m.viewDescription()
