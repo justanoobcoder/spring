@@ -46,7 +46,6 @@ type Model struct {
 	Dependencies []string
 	inputs       []textinput.Model
 	springBoot   springboot.SpringBoot
-	textInput    textinput.Model
 	focused      int
 	state        state
 	failed       bool
@@ -64,8 +63,6 @@ func NewModel() *Model {
 		sp.Type.Default,
 		0, 0,
 	)
-	ti := textinput.New()
-	ti.Focus()
 
 	inputs := make([]textinput.Model, 6)
 
@@ -127,7 +124,6 @@ func NewModel() *Model {
 		springBoot:   sp,
 		state:        chooseProjectType,
 		list:         l,
-		textInput:    ti,
 		inputs:       inputs,
 		focused:      0,
 		failed:       false,
