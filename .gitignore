@@ -4,3 +4,4 @@ spring
 *.zip
 *.xml
 *.gradle
+*.json
