@@ -13,9 +13,12 @@ func (m Model) updateApplicationName(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
-			m.Name = m.textInput.Value()
+			input := m.textInput.Value()
+			if input != "" {
+				m.Name = input
+			}
 			m.state = inputDescription
-			m.textInput.Placeholder = "Description"
+			m.textInput.Placeholder = m.Description
 			m.textInput.SetValue(m.Description)
 			m.textInput.CursorEnd()
 			return m, nil

@@ -120,7 +120,7 @@ type Guide struct {
 	HomeArray []Home
 }
 
-func NewSpringBoot() (SpringBoot, error) {
+func New() (SpringBoot, error) {
 	client := http.Client{Timeout: timeout}
 	req, err := http.NewRequest("GET", initializrUrl, nil)
 	req.Header.Set("Accept", "application/json")

@@ -2,6 +2,7 @@ package ui
 
 import (
 	"fmt"
+	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -13,9 +14,12 @@ func (m Model) updateGroupId(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
-			m.GroupId = m.textInput.Value()
+			input := strings.TrimSpace(m.textInput.Value())
+			if input != "" {
+				m.GroupId = input
+			}
 			m.state = inputArtifactId
-			m.textInput.Placeholder = "Artifact ID"
+			m.textInput.Placeholder = m.ArtifactId
 			m.textInput.SetValue(m.ArtifactId)
 			m.textInput.CursorEnd()
 			return m, nil

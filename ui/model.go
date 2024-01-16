@@ -46,7 +46,7 @@ type Model struct {
 }
 
 func NewModel() *Model {
-	sp, err := springboot.NewSpringBoot()
+	sp, err := springboot.New()
 	if err != nil {
 		panic(err)
 	}
@@ -56,6 +56,8 @@ func NewModel() *Model {
 		sp.Type.Default,
 		0, 0,
 	)
+	ti := textinput.New()
+	ti.Focus()
 	return &Model{
 		Packaging:    sp.Packaging.Default,
 		JavaVersion:  sp.JavaVersion.Default,
@@ -72,6 +74,7 @@ func NewModel() *Model {
 		springBoot:   sp,
 		state:        chooseProjectType,
 		list:         l,
+		textInput:    ti,
 		quitting:     false,
 	}
 }

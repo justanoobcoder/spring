@@ -13,9 +13,12 @@ func (m Model) updateArtifactId(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
-			m.ArtifactId = m.textInput.Value()
+			input := m.textInput.Value()
+			if input != "" {
+				m.ArtifactId = input
+			}
 			m.state = inputApplicationName
-			m.textInput.Placeholder = "Name"
+			m.textInput.Placeholder = m.Name
 			m.textInput.SetValue(m.Name)
 			m.textInput.CursorEnd()
 			return m, nil

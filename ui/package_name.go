@@ -2,6 +2,7 @@ package ui
 
 import (
 	"fmt"
+	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
 	springlist "github.com/justanoobcoder/spring/springlist"
@@ -14,7 +15,10 @@ func (m Model) updatePackageName(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
-			m.PackageName = m.textInput.Value()
+			input := strings.TrimSpace(m.textInput.Value())
+			if input != "" {
+				m.PackageName = input
+			}
 			m.state = choosePackaging
 			m.list = springlist.NewNormalListModel(
 				"Packaging",
