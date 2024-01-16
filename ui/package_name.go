@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
-	springlist "github.com/justanoobcoder/spring/list"
+	springlist "github.com/justanoobcoder/spring/springlist"
 )
 
 func (m Model) updatePackageName(msg tea.Msg) (tea.Model, tea.Cmd) {

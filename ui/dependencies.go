@@ -5,8 +5,8 @@ import (
 
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
-	springlist "github.com/justanoobcoder/spring/list"
 	"github.com/justanoobcoder/spring/springboot"
+	springlist "github.com/justanoobcoder/spring/springlist"
 	"github.com/justanoobcoder/spring/style"
 )
 

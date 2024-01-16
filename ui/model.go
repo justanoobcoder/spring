@@ -3,8 +3,8 @@ package ui
 import (
 	"github.com/charmbracelet/bubbles/list"
 	"github.com/charmbracelet/bubbles/textinput"
-	springlist "github.com/justanoobcoder/spring/list"
 	"github.com/justanoobcoder/spring/springboot"
+	springlist "github.com/justanoobcoder/spring/springlist"
 )
 
 type errMsg struct{ error }
