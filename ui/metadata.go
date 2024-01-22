@@ -68,6 +68,9 @@ func (m Model) updateMetaData(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 		m.inputs[m.focused].Focus()
 	}
+	if m.focused == 0 || m.focused == 1 {
+		m.inputs[4].SetValue(m.inputs[0].Value() + "." + m.inputs[1].Value())
+	}
 
 	for i := range m.inputs {
 		m.inputs[i], cmds[i] = m.inputs[i].Update(msg)
@@ -117,6 +120,7 @@ func (m Model) viewMetaData() string {
 // nextInput focuses the next input field
 func (m *Model) nextInput() {
 	m.focused = (m.focused + 1) % len(m.inputs)
+	m.inputs[m.focused].CursorEnd()
 }
 
 // prevInput focuses the previous input field
@@ -126,4 +130,5 @@ func (m *Model) prevInput() {
 	if m.focused < 0 {
 		m.focused = len(m.inputs) - 1
 	}
+	m.inputs[m.focused].CursorEnd()
 }
