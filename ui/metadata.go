@@ -70,6 +70,9 @@ func (m Model) updateMetaData(msg tea.Msg) (tea.Model, tea.Cmd) {
 	}
 	if m.focused == 0 || m.focused == 1 {
 		m.inputs[4].SetValue(m.inputs[0].Value() + "." + m.inputs[1].Value())
+		if m.focused == 1 {
+			m.inputs[2].SetValue(m.inputs[1].Value())
+		}
 	}
 
 	for i := range m.inputs {
