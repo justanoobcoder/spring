@@ -5,6 +5,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/justanoobcoder/spring/springboot"
+	"github.com/justanoobcoder/spring/utils"
 )
 
 type errMsg struct{ error }
@@ -39,6 +40,10 @@ func (m Model) downloadFileMsg() tea.Msg {
 	if err != nil {
 		return errMsg{err}
 	}
+	if strings.HasSuffix(filename, ".zip") {
+		utils.UnzipSource(filename, m.Name)
+		utils.RemoveFile(filename)
+	}
 
 	return statusMsg(statusCode)
 }
@@ -49,7 +54,6 @@ func (m Model) updateDownloadFile(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if msg == 200 {
 			m.message = "Downloaded file successfully!"
 			m.quitting = true
-			return m, tea.Quit
 		}
 		return m, tea.Quit
 	case errMsg:
